@@ -125,7 +125,7 @@ VeloxRaster$methods(extract = function(sp, fun = NULL, df=FALSE) {
     if(!is.null(fun)) {
       out <- data.frame(ID_sp=sp_IDs, out)
     } else {
-      nrow_each <- sapply(out, nrow)
+      nrow_each <- sapply(out, function(x) {nr <- nrow(x); if(is.null(nr)) 0 else nr})
       sp_IDs_rep <- unlist(Map(rep, sp_IDs, nrow_each))
       out <- data.frame(ID_sp=sp_IDs_rep, do.call("rbind", out))
     }
